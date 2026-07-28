@@ -12,7 +12,10 @@ const TAB_LABELS = {
 const FILE_NAMES = {
   model: (name) => `models/${name}.js`,
   controller: (name) => `controllers/${name}Controller.js`,
-  route: (name) => `routes/${name.toLowerCase()}Routes.js`,
+  route: (name) =>
+    `routes/${name
+      .replace(/([A-Z])/g, (m, l, offset) => (offset ? '-' : '') + l)
+      .toLowerCase()}Routes.js`,
 };
 
 const GeneratedCode = ({ modelName, code, onDownload }) => {

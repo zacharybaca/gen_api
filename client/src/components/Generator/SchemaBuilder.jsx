@@ -30,10 +30,13 @@ const SchemaBuilder = () => {
   };
 
   const handleDownload = (fileType, content, name) => {
+    const kebab = name
+      .replace(/([A-Z])/g, (m, l, offset) => (offset ? '-' : '') + l)
+      .toLowerCase();
     const suffixes = {
       model: `${name}.js`,
       controller: `${name}Controller.js`,
-      route: `${name.toLowerCase()}Routes.js`,
+      route: `${kebab}Routes.js`,
     };
     const blob = new Blob([content], { type: 'text/javascript' });
     const url = URL.createObjectURL(blob);
@@ -63,6 +66,23 @@ const SchemaBuilder = () => {
     if (validFields.length === 0) {
       toast.error('At least one field with a name is required.');
       return;
+    }
+
+    // Validate field names match the backend's identifier rules
+    const identifierRe = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
+    const seenNames = new Set();
+    for (const f of validFields) {
+      if (!identifierRe.test(f.name)) {
+        toast.error(
+          `"${f.name}" is not a valid field name. Use letters, digits, _ or $ (must not start with a digit).`,
+        );
+        return;
+      }
+      if (seenNames.has(f.name.toLowerCase())) {
+        toast.error(`Duplicate field name: "${f.name}"`);
+        return;
+      }
+      seenNames.add(f.name.toLowerCase());
     }
 
     const endpoint = writeToFs

@@ -86,6 +86,20 @@ describe("generateCode", () => {
     expect(routePrefix).toBe("blog-posts");
   });
 
+  it("pluralises names ending in 's' with 'es'", () => {
+    const { routePrefix } = generateCode("Status", [
+      { name: "label", type: "String" },
+    ]);
+    expect(routePrefix).toBe("statuses");
+  });
+
+  it("pluralises names ending in consonant+'y' correctly", () => {
+    const { routePrefix } = generateCode("Category", [
+      { name: "title", type: "String" },
+    ]);
+    expect(routePrefix).toBe("categories");
+  });
+
   // ── model checks ──────────────────────────────────────────────────────────
   describe("generated model", () => {
     it("includes mongoose import", () => {

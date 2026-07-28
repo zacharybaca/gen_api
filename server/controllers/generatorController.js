@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs/promises";
 import asyncHandler from "express-async-handler";
-import { generateCode } from "../utils/codeGenerator.js";
+import { generateCode, toKebabCase } from "../utils/codeGenerator.js";
 
 /**
  * Resolves the output directory from the environment variable OUTPUT_DIR,
@@ -46,7 +46,7 @@ const generateFiles = asyncHandler(async (req, res) => {
       "utf8",
     ),
     fs.writeFile(
-      path.join(routesDir, `${pascal.toLowerCase()}Routes.js`),
+      path.join(routesDir, `${toKebabCase(pascal)}Routes.js`),
       route,
       "utf8",
     ),
@@ -58,7 +58,7 @@ const generateFiles = asyncHandler(async (req, res) => {
     files: {
       model: `generated/models/${pascal}.js`,
       controller: `generated/controllers/${pascal}Controller.js`,
-      route: `generated/routes/${pascal.toLowerCase()}Routes.js`,
+      route: `generated/routes/${toKebabCase(pascal)}Routes.js`,
     },
     code: { model, controller, route },
   });

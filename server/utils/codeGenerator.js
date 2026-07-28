@@ -65,15 +65,32 @@ function toCamel(str) {
 }
 
 /**
- * Converts a PascalCase model name to a kebab-case route prefix.
- * e.g. "BlogPost" → "blog-posts"
+ * Converts a PascalCase model name to its kebab-case stem.
+ * e.g. "BlogPost" → "blog-post"
+ */
+function toKebab(str) {
+  return str
+    .replace(/([A-Z])/g, (m, l, offset) => (offset ? "-" : "") + l)
+    .toLowerCase();
+}
+
+/**
+ * Naively pluralises an English word (covers the common cases).
+ * e.g. "blog-post" → "blog-posts", "category" → "categories",
+ *      "status" → "statuses"
+ */
+function pluralise(word) {
+  if (/(?:s|x|z|ch|sh)$/i.test(word)) return word + "es";
+  if (/[^aeiou]y$/i.test(word)) return word.slice(0, -1) + "ies";
+  return word + "s";
+}
+
+/**
+ * Converts a PascalCase model name to a kebab-case plural route prefix.
+ * e.g. "BlogPost" → "blog-posts", "Category" → "categories"
  */
 function toRoutePrefix(str) {
-  return (
-    str
-      .replace(/([A-Z])/g, (m, l, offset) => (offset ? "-" : "") + l)
-      .toLowerCase() + "s"
-  );
+  return pluralise(toKebab(str));
 }
 
 // ─── Template builders ────────────────────────────────────────────────────────
@@ -230,4 +247,4 @@ function generateCode(modelName, fields) {
   };
 }
 
-export { generateCode, validateInputs, VALID_TYPES };
+export { generateCode, validateInputs, VALID_TYPES, toKebab as toKebabCase };
