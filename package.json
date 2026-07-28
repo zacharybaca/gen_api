@@ -1,0 +1,38 @@
+{
+  "name": "react-starter-template",
+  "version": "1.0.0",
+  "description": "🚀 A modern React + Vite starter template — fast, minimal, and MERN-ready.",
+  "main": "server/server.js",
+  "scripts": {
+    "install-all": "npm install && npm install --prefix client && npm install --prefix server",
+    "clean-install": "rimraf node_modules client/node_modules server/node_modules package-lock.json client/package-lock.json server/package-lock.json && npm run install-all",
+    "server": "nodemon --prefix server server.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+    "format": "prettier --write \"{client/src,server}/**/*.{js,jsx,json,css,md}\"",
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "mern",
+    "react",
+    "vite",
+    "starter"
+  ],
+  "author": "Zachary Baca",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zacharybaca/react-starter-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zacharybaca/react-starter-template/issues"
+  },
+  "homepage": "https://github.com/zacharybaca/react-starter-template#readme",
+  "dependencies": {
+    "prettier": "^3.8.3",
+    "rimraf": "^6.1.3"
+  }
+}

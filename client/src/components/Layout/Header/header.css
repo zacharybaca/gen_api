@@ -1,0 +1,23 @@
+.page-header {
+  background-color: #1e293b; /* Navy Blue */
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+}
+
+.header-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.header-subtitle {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #94a3b8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}

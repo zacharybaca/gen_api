@@ -1,0 +1,8 @@
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #10b981;
+  border-radius: 12px;
+  border: 2px solid black;
+}

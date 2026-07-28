@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "module": "esnext",
+    "target": "es2022",
+    "moduleResolution": "bundler",
+    "checkJs": false,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "*": ["*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules",
+    "dist",
+    "build",
+    "client/dist",
+    "client/build"
+  ]
+}

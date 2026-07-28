@@ -1,0 +1,230 @@
+/* =========================================
+   1. BASE NAVBAR LAYOUT & LOGO SIZING
+   ========================================= */
+.main-nav {
+  background-color: #0f172a; /* Jury Navy Blue */
+  border-bottom: 1px solid #1e293b;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between; /* Pushes logo left, links right */
+  align-items: center; /* Vertically centers everything */
+}
+
+/* Taming the Giant SVG Logo */
+.nav-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.nav-logo-svg {
+  height: 40px; /* Restricts the height so it doesn't take over the screen */
+  width: auto;
+  max-width: 250px;
+  display: block;
+}
+
+/* Base Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px; /* Creates even spacing between your links */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  color: #10b981; /* Jury Emerald */
+}
+
+/* =========================================
+   2. USER DROPDOWN MENU & AVATAR
+   ========================================= */
+
+/* Container must be relative so the absolute menu positions itself against it */
+.user-menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-toggle {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  padding: 6px 16px 6px 6px; /* Adjusted: less padding on the left to fit the image */
+  border-radius: 30px; /* Made slightly rounder for the avatar */
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.dropdown-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #10b981; /* Emerald hover state */
+}
+
+/* --- NEW: Avatar Styles --- */
+.nav-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image doesn't stretch */
+  border: 1px solid #334155;
+}
+
+.nav-avatar-fallback {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #10b981; /* Jury Emerald */
+  color: #0f172a; /* Dark text for contrast */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.nav-username {
+  margin-left: 2px;
+}
+
+/* --- The Menu Itself --- */
+.chevron {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px); /* Pushes it just below the toggle button */
+  right: 0; /* Aligns to the right edge of the button */
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  width: 220px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* Ensures it stays on top of page content */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Keeps hover states inside the rounded borders */
+  animation: slideDown 0.2s ease-out;
+}
+
+.dropdown-header {
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.dropdown-header strong {
+  color: #f8fafc;
+  display: block;
+  margin-top: 4px;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #334155;
+  margin: 4px 0;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #10b981; /* Jury Emerald */
+}
+
+/* Specific styling for the logout button */
+.logout-item {
+  color: #ef4444; /* Red to signify destructive action */
+}
+
+.logout-item:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+/* Smooth entry animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   3. LOGO INTERACTION & ANIMATION
+   ========================================= */
+
+/* The container link */
+.nav-logo-link {
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Slightly scale up the whole logo on hover */
+.nav-logo-link:hover {
+  transform: scale(1.05);
+}
+
+/* Target the SVG itself when the link is hovered */
+.nav-logo-link:hover .nav-logo-svg {
+  /* This creates a subtle emerald glow using your brand color #10b981 */
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
+}
+
+/* Optional: Target specific shapes inside the SVG
+   (If you used className="svgShape" in your paths) */
+.nav-logo-link:hover .nav-logo-svg .svgShape {
+  transition: fill 0.3s ease;
+}
+
+/* Example: Make the green background rect even more vibrant on hover */
+.nav-logo-link:hover .nav-logo-svg rect[fill='#34a853'] {
+  fill: #10b981;
+}
