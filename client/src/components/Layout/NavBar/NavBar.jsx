@@ -38,13 +38,18 @@ const NavBar = () => {
     <nav className="main-nav">
       <div className="nav-container">
         <Link to="/" className="nav-logo-link">
-          <h1>MERN Starter</h1>
+          <h1>API Creator</h1>
         </Link>
 
         <ul className="nav-links">
           <li>
             <Link to="/" className="nav-item">
               Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/create" className="nav-item">
+              API Creator
             </Link>
           </li>
 

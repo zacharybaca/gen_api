@@ -12,6 +12,7 @@ import ForgotPassword from './components/Auth/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/Auth/ResetPassword/ResetPassword';
 import Home from './components/Pages/Home';
 import NotFound from './components/Pages/NotFound';
+import SchemaBuilder from './components/Generator/SchemaBuilder';
 import './App.css';
 
 // The Layout Component: Wraps pages with Header and Footer
@@ -34,6 +35,7 @@ function App() {
       {/* Wrap all routes in the Layout */}
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="create" element={<SchemaBuilder />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgot-password" element={<ForgotPassword />} />

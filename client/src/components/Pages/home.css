@@ -5,4 +5,58 @@
   background-color: #10b981;
   border-radius: 12px;
   border: 2px solid black;
+  padding: 2rem;
+}
+
+/* ─── Hero CTA ────────────────────────────────────────────────────────────── */
+.hero-cta {
+  display: inline-block;
+  margin-top: 1.25rem;
+  padding: 0.7rem 1.6rem;
+  background: #6366f1;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.hero-cta:hover {
+  background: #4f46e5;
+}
+
+/* ─── Feature cards ───────────────────────────────────────────────────────── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 860px;
+}
+
+.feature-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: #111827;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.5;
 }
