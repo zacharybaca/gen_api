@@ -14,10 +14,12 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Guard against double-submission while a request is in flight
     if (isSubmitting) {
       return;
     }
 
+    // Client-side confirmation check before hitting the network
     if (password !== confirmPassword) {
       toast.error('Passwords do not match.');
       return;
@@ -31,6 +33,7 @@ const ResetPassword = () => {
     });
 
     if (response.success) {
+      // Backend auto-logs in after a successful reset; navigate home
       toast.success('Password reset successful! You are now logged in.');
       navigate('/');
     } else {

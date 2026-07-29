@@ -1,8 +1,10 @@
-# 🚀 MERN Stack Starter Template (Vite + Express)
+# 🚀 API Creator — MERN Stack Scaffold Generator (Vite + Express)
 
-A production-ready **MERN (MongoDB, Express, React, Node.js)** starter template designed for scalability and developer experience.
+A full-stack **MERN (MongoDB, Express, React, Node.js)** application that generates ready-to-use Express routes, controllers, and Mongoose models from a simple schema definition.
 
-Monorepo structure with a single-command startup, pre-configured CORS + Vite proxy, JWT cookie auth, Socket.IO, Cloudinary avatar uploads, and email via Nodemailer — all wired up and ready to customize.
+Define a data model in the browser, click **Generate**, and get production-ready CRUD boilerplate dropped straight into your project — or download individual files.
+
+Built on a production-ready monorepo with single-command startup, pre-configured CORS + Vite proxy, JWT cookie auth, Socket.IO, Cloudinary avatar uploads, and email via Nodemailer.
 
 ---
 
@@ -11,12 +13,12 @@ Monorepo structure with a single-command startup, pre-configured CORS + Vite pro
 ### 🏗 Architecture
 - **Monorepo:** Distinct `client/` and `server/` directories, one-command boot.
 - **MVC Backend:** Models, Controllers, Routes, Middleware separation.
-- **Graceful Shutdown:** Handles `SIGINT` to cleanly close the DB connection.
+- **Graceful Shutdown:** Handles `SIGINT`/`SIGTERM` to cleanly close the DB connection.
 
 ### ⚡ Frontend (`client/`)
 - **React 19 + Vite 6:** Lightning-fast HMR and optimized production builds.
 - **React Router v7:** Nested routing with a shared Layout component.
-- **Clerk (`@clerk/react-router`):** Drop-in authentication UI and session management. `ClerkProvider` wraps the entire app; use Clerk’s `useUser`/`useClerk`, `<SignIn />`, `<SignUp />`, and `<SignedIn>`/`<SignedOut>` guards anywhere in the component tree.
+- **Clerk (`@clerk/react-router`):** Drop-in authentication UI and session management. `ClerkProvider` wraps the entire app; use Clerk's `useUser`/`useClerk`, `<SignIn />`, `<SignUp />`, and `<SignedIn>`/`<SignedOut>` guards anywhere in the component tree.
 - **Context API:** `AuthContext`, `FetcherContext`, `SocketContext` composable via `AppProvider`.
 - **Custom `useFetcher` hook:** Centralized fetch wrapper with credential handling and error normalization.
 - **react-toastify:** Drop-in toast notifications already wired to auth flows.
@@ -24,13 +26,21 @@ Monorepo structure with a single-command startup, pre-configured CORS + Vite pro
 - **ESLint + Prettier + Husky:** Pre-commit formatting and linting enforced automatically.
 - **Vitest + Testing Library:** Unit and component tests out of the box, with coverage via `@vitest/coverage-v8`.
 
+### 🔧 API Creator (Generator)
+- **Schema Builder UI (`/create`):** Name a model, add fields with types (`String`, `Number`, `Boolean`, `Date`, `ObjectId`, `Mixed`) and required flags.
+- **Preview mode:** Returns generated code in-browser without writing anything to disk — requires authentication.
+- **Generate & Save mode:** Writes model, controller, and route files to `server/generated/` (requires authentication).
+- **Download:** Download any individual generated file directly from the browser.
+- **Full CRUD scaffold:** Every generated set includes a Mongoose model, an Express controller with `getAll`, `getById`, `create`, `update`, and `delete` handlers, and a router wired to the `protect` middleware.
+
 ### 🛡 Backend (`server/`)
 - **JWT Auth:** `httpOnly` cookie-based tokens with 30-day expiry.
 - **Role-based access:** `protect` (auth) and `admin` (`role === "admin"`) middleware.
-- **Input validation:** `express-validator` enforced on register and login routes.
+- **Input validation:** `express-validator` enforced on register, login, and generator routes.
 - **Password reset flow:** Secure token generation + Nodemailer SMTP email delivery. Auto-logs in after reset.
 - **Socket.IO:** Per-user rooms wired on connection.
 - **Cloudinary:** Optional avatar upload middleware via Multer.
+- **Content moderation:** `leo-profanity` middleware rejects submissions containing flagged language.
 - **Security:** `helmet`, `cors`, `express-rate-limit`, `bcryptjs` — all pre-configured and active.
 - **Logging:** `morgan` request logger (colorized in dev, Apache Combined in production).
 - **Vitest:** Backend unit tests for middleware and utilities, with coverage via `@vitest/coverage-v8`.
@@ -81,7 +91,7 @@ npm run dev
 ## 📂 Project Structure
 
 ```text
-react-starter-template/
+gen_api/
 ├── .env.example                  # Environment variable template
 ├── .github/
 │   └── workflows/
@@ -92,7 +102,8 @@ react-starter-template/
 │   └── src/
 │       ├── assets/               # Static assets (images, fonts, etc.)
 │       ├── components/
-│       │   ├── Auth/             # Login & Register forms
+│       │   ├── Auth/             # Login, Register, ForgotPassword, ResetPassword
+│       │   ├── Generator/        # SchemaBuilder, FieldRow, GeneratedCode
 │       │   ├── Layout/           # NavBar, Footer, Header
 │       │   ├── Pages/            # Route-level page components (Home, NotFound)
 │       │   └── Utility/          # ProtectedRoute, AdminRoute
@@ -109,12 +120,13 @@ react-starter-template/
 │       ├── App.jsx               # Route definitions
 │       └── main.jsx              # Entry point
 ├── server/                       # Express Backend
-│   ├── controllers/              # Request handlers
+│   ├── controllers/              # Request handlers (auth, user, generator)
+│   ├── generated/                # Output directory for generated files (git-ignored)
 │   ├── middleware/               # Auth, error, Cloudinary, moderation
 │   ├── models/                   # Mongoose schemas
 │   ├── routes/                   # API route definitions
 │   ├── tests/                    # Vitest unit tests
-│   ├── utils/                    # generateToken, sendEmail
+│   ├── utils/                    # generateToken, sendEmail, codeGenerator
 │   ├── app.js                    # Express app factory
 │   └── server.js                 # HTTP + Socket.IO + DB entry point
 └── package.json                  # Root scripts (dev, install-all, format)
@@ -183,6 +195,28 @@ All endpoints are prefixed with `/api`.
 | GET    | `/profile` | ✅   | Get the logged-in user's profile         |
 | PUT    | `/profile` | ✅   | Update profile (name, email, avatar)     |
 | DELETE | `/profile` | ✅   | Delete account and Cloudinary avatar     |
+
+### Generator — `/api/generator`
+
+| Method | Route       | Auth | Description                                           |
+|--------|-------------|------|-------------------------------------------------------|
+| POST   | `/preview`  | ✅   | Return generated model/controller/route code (no disk writes) |
+| POST   | `/generate` | ✅   | Generate and write files to `server/generated/`      |
+
+**Request body for both routes:**
+```json
+{
+  "modelName": "BlogPost",
+  "fields": [
+    { "name": "title",     "type": "String",  "required": true  },
+    { "name": "body",      "type": "String",  "required": false },
+    { "name": "author",    "type": "ObjectId","required": true  },
+    { "name": "published", "type": "Boolean", "required": false }
+  ]
+}
+```
+
+Valid field types: `String`, `Number`, `Boolean`, `Date`, `ObjectId`, `Mixed`.
 
 ### Rate Limits
 

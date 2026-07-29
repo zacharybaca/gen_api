@@ -22,6 +22,8 @@ const GeneratedCode = ({ modelName, code, onDownload }) => {
   const [activeTab, setActiveTab] = useState('model');
   const [copied, setCopied] = useState(false);
 
+  // Copy the currently visible tab's source code to the clipboard,
+  // then briefly show a "✓ Copied" confirmation label.
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code[activeTab]);
     setCopied(true);

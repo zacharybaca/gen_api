@@ -12,6 +12,9 @@ import App from './App.jsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
+// When a Clerk publishable key is provided, wrap the app in ClerkProvider
+// to enable Clerk's auth UI components and session management.
+// Without the key the app still works using the JWT-cookie auth flow.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>

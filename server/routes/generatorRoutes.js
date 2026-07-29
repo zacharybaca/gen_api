@@ -5,6 +5,7 @@ import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
+// Returns the first validation error as a 422 response
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -14,6 +15,7 @@ const validate = (req, res, next) => {
   next();
 };
 
+// Input validators for the schema generation endpoints
 const schemaValidators = [
   body("modelName")
     .trim()

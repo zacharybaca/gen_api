@@ -17,18 +17,25 @@ const SchemaBuilder = () => {
   const [loading, setLoading] = useState(false);
   const [writeToFs, setWriteToFs] = useState(false);
 
+  // Update a single field at the given index without mutating the rest of the list
   const handleFieldChange = (index, updatedField) => {
     setFields((prev) => prev.map((f, i) => (i === index ? updatedField : f)));
   };
 
+  // Append a blank field row to the list
   const handleAddField = () => {
     setFields((prev) => [...prev, { ...DEFAULT_FIELD }]);
   };
 
+  // Remove the field row at the given index
   const handleRemoveField = (index) => {
     setFields((prev) => prev.filter((_, i) => i !== index));
   };
 
+  /**
+   * handleDownload — creates a temporary <a> element to trigger a browser
+   * download of the generated file content as a .js file.
+   */
   const handleDownload = (fileType, content, name) => {
     const kebab = name
       .replace(/([A-Z])/g, (m, l, offset) => (offset ? '-' : '') + l)
@@ -47,6 +54,11 @@ const SchemaBuilder = () => {
     URL.revokeObjectURL(url);
   };
 
+  /**
+   * handleSubmit — validates the model name and fields client-side,
+   * then calls either the preview or generate endpoint depending on the
+   * writeToFs toggle.  On success, stores the returned code for display.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -121,6 +133,7 @@ const SchemaBuilder = () => {
     }
   };
 
+  // Reset all form state so the user can start a new schema from scratch
   const handleReset = () => {
     setModelName('');
     setFields([{ ...DEFAULT_FIELD }]);
