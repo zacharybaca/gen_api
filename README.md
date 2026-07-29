@@ -28,7 +28,7 @@ Built on a production-ready monorepo with single-command startup, pre-configured
 
 ### 🔧 API Creator (Generator)
 - **Schema Builder UI (`/create`):** Name a model, add fields with types (`String`, `Number`, `Boolean`, `Date`, `ObjectId`, `Mixed`) and required flags.
-- **Preview mode:** Returns generated code in-browser without writing anything to disk — no login required.
+- **Preview mode:** Returns generated code in-browser without writing anything to disk — requires authentication.
 - **Generate & Save mode:** Writes model, controller, and route files to `server/generated/` (requires authentication).
 - **Download:** Download any individual generated file directly from the browser.
 - **Full CRUD scaffold:** Every generated set includes a Mongoose model, an Express controller with `getAll`, `getById`, `create`, `update`, and `delete` handlers, and a router wired to the `protect` middleware.
