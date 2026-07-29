@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 const FIELD_TYPES = ['String', 'Number', 'Boolean', 'Date', 'ObjectId', 'Mixed'];
 
 const FieldRow = ({ index, field, onChange, onRemove, canRemove }) => {
+  // Propagate a single key/value change to the parent's field list
   const handleChange = (key, value) => {
     onChange(index, { ...field, [key]: value });
   };

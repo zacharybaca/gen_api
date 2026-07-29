@@ -2,6 +2,11 @@ import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import User from "../models/User.js";
 
+/**
+ * protect — requires a valid JWT cookie.
+ * Decodes the token, fetches the user from the DB (minus password),
+ * and attaches it to req.user before calling next().
+ */
 const protect = asyncHandler(async (req, res, next) => {
   // JWT is issued as an httpOnly cookie during login.
   let token = req.cookies.jwt;
@@ -30,6 +35,10 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 // For strictly Admin-only routes
+/**
+ * admin — must be stacked after `protect`.
+ * Allows the request through only when req.user.role === "admin".
+ */
 const admin = (req, res, next) => {
   if (req.user && req.user.role === "admin") {
     next();

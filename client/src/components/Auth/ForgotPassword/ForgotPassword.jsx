@@ -12,6 +12,7 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Guard against double-submission while a request is in flight
     if (isSubmitting) {
       return;
     }
@@ -22,6 +23,8 @@ const ForgotPassword = () => {
       body: JSON.stringify({ email }),
     });
 
+    // Treat both success and "not found" responses as submitted to prevent
+    // email enumeration — the UI always shows the "check your email" message.
     if (response.success || response.status === 404) {
       setSubmitted(true);
     } else {

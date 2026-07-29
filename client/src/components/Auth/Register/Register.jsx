@@ -19,6 +19,7 @@ const Register = () => {
   const location = useLocation();
 
   useEffect(() => {
+    // Display any success message passed via router state, then clear it.
     if (location.state?.message) {
       toast.success(location.state.message);
       window.history.replaceState({}, document.title);
@@ -31,6 +32,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Guard against double-submission while a request is in flight
     if (isSubmitting) {
       return;
     }
@@ -41,6 +43,7 @@ const Register = () => {
     });
 
     if (response.success) {
+      // Redirect to login and surface a success toast via router state
       navigate('/login', {
         state: { message: 'Registration successful! Please log in.' },
       });

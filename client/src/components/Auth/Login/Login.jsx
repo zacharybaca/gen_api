@@ -15,6 +15,8 @@ const Login = () => {
   const location = useLocation();
 
   useEffect(() => {
+    // Display any success message passed via router state (e.g. after registration)
+    // then clear it so a page refresh doesn't re-show the toast.
     if (location.state?.message) {
       toast.success(location.state.message);
       window.history.replaceState({}, document.title);
@@ -27,6 +29,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Guard against double-submission while a request is in flight
     if (isSubmitting) {
       return;
     }
@@ -38,6 +41,7 @@ const Login = () => {
     });
 
     if (response.success) {
+      // Redirect back to the page the user was trying to reach, or home
       const origin = location.state?.from?.pathname || '/';
       navigate(origin);
     } else {

@@ -4,9 +4,13 @@ import sendEmail from "../utils/sendEmail.js";
 import asyncHandler from "express-async-handler";
 import crypto from "crypto";
 
+// @desc    Register a new user
+// @route   POST /api/auth/register
+// @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, username, email, password } = req.body;
 
+  // Reject if email or username is already taken
   const userExists = await User.findOne({ $or: [{ email }, { username }] });
 
   if (userExists) {
@@ -17,6 +21,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({ name, username, email, password });
 
   if (user) {
+    // Issue JWT cookie and return the new user's public fields
     generateToken(res, user._id);
     res.status(201).json({
       _id: user._id,
@@ -30,6 +35,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Check whether the current authenticated user has the admin role
+// @route   GET /api/auth/is-admin
+// @access  Private
 const isUserAdmin = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -41,6 +49,9 @@ const isUserAdmin = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Authenticate user and set JWT cookie
+// @route   POST /api/auth/login
+// @access  Public
 const loginUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
   // Support login by either email or username, and accept both when provided.
@@ -66,6 +77,9 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Log out the current user by clearing the JWT cookie
+// @route   POST /api/auth/logout
+// @access  Public
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,

@@ -12,6 +12,7 @@ const NavBar = () => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
+    // Close the dropdown whenever the user clicks outside of it
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
@@ -24,6 +25,7 @@ const NavBar = () => {
     };
   }, []);
 
+  // Call the AuthProvider logout, close the dropdown, and redirect to login
   const handleLogout = async (e) => {
     e.preventDefault();
     await logout();
@@ -32,6 +34,7 @@ const NavBar = () => {
     navigate('/login');
   };
 
+  // Helper to close the dropdown menu (used by nav link click handlers)
   const closeMenu = () => setIsDropdownOpen(false);
 
   return (
