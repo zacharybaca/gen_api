@@ -13,7 +13,8 @@ cloudinary.config({
 });
 
 // Store uploaded files directly in Cloudinary under the "avatar_uploads" folder,
-// accepting only JPEG/PNG images up to 5 MB (enforced by multer limits below).
+// allowing only JPEG/PNG images (via CloudinaryStorage allowedFormats) up to 5 MB
+// (enforced by multer limits below).
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
