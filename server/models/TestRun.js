@@ -1,17 +1,17 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const testRunSchema = new mongoose.Schema(
   {
     sequenceId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'TestSequence',
+      ref: "TestSequence",
       required: true,
     },
     status: {
       type: String,
       required: true,
-      enum: ['Pass', 'Fail', 'Pending'],
-      default: 'Pending',
+      enum: ["Pass", "Fail", "Pending"],
+      default: "Pending",
     },
     executionTimeMs: {
       type: Number,
@@ -22,12 +22,12 @@ const testRunSchema = new mongoose.Schema(
     },
     actualResponsePayload: {
       type: mongoose.Schema.Types.Mixed,
-    }
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const TestRun = mongoose.model('TestRun', testRunSchema);
+const TestRun = mongoose.model("TestRun", testRunSchema);
 export default TestRun;

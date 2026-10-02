@@ -162,7 +162,9 @@
   border-radius: 8px;
   cursor: pointer;
   width: 100%;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .btn-add-field:hover {
@@ -230,7 +232,9 @@
   padding: 0.65rem 1.25rem;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
 }
 
 .btn-reset:hover {
@@ -265,7 +269,9 @@
   font-weight: 500;
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 
 .code-tab:hover {

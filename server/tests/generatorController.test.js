@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { generateCode, validateInputs, VALID_TYPES } from "../utils/codeGenerator.js";
+import {
+  generateCode,
+  validateInputs,
+  VALID_TYPES,
+} from "../utils/codeGenerator.js";
 
 // ─── validateInputs ──────────────────────────────────────────────────────────
 describe("validateInputs", () => {
@@ -123,7 +127,9 @@ describe("generateCode", () => {
   // ── controller checks ─────────────────────────────────────────────────────
   describe("generated controller", () => {
     it("imports the generated model", () => {
-      expect(result.controller).toContain('import Post from "../models/Post.js"');
+      expect(result.controller).toContain(
+        'import Post from "../models/Post.js"',
+      );
     });
 
     it("exports all five CRUD handlers", () => {
@@ -144,9 +150,7 @@ describe("generateCode", () => {
   // ── route checks ──────────────────────────────────────────────────────────
   describe("generated route", () => {
     it("imports from the generated controller", () => {
-      expect(result.route).toContain(
-        'from "../controllers/PostController.js"',
-      );
+      expect(result.route).toContain('from "../controllers/PostController.js"');
     });
 
     it("uses protect middleware", () => {

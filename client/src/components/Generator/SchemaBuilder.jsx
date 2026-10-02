@@ -69,7 +69,7 @@ const SchemaBuilder = () => {
     }
     if (!/^[A-Za-z][A-Za-z0-9]*$/.test(trimmedName)) {
       toast.error(
-        'Model name must start with a letter and contain only alphanumeric characters.',
+        'Model name must start with a letter and contain only alphanumeric characters.'
       );
       return;
     }
@@ -86,7 +86,7 @@ const SchemaBuilder = () => {
     for (const f of validFields) {
       if (!identifierRe.test(f.name)) {
         toast.error(
-          `"${f.name}" is not a valid field name. Use letters, digits, _ or $ (must not start with a digit).`,
+          `"${f.name}" is not a valid field name. Use letters, digits, _ or $ (must not start with a digit).`
         );
         return;
       }
@@ -118,13 +118,13 @@ const SchemaBuilder = () => {
 
       setGeneratedCode(data.code);
       setGeneratedModelName(
-        trimmedName.charAt(0).toUpperCase() + trimmedName.slice(1),
+        trimmedName.charAt(0).toUpperCase() + trimmedName.slice(1)
       );
 
       toast.success(
         writeToFs
           ? `Files generated for "${trimmedName}"!`
-          : 'Preview ready — review and download individual files.',
+          : 'Preview ready — review and download individual files.'
       );
     } catch (err) {
       toast.error(err.message);
@@ -170,7 +170,9 @@ const SchemaBuilder = () => {
             onChange={(e) => setModelName(e.target.value)}
             required
           />
-          <p className="field-hint">PascalCase recommended — e.g. BlogPost, ProductReview</p>
+          <p className="field-hint">
+            PascalCase recommended — e.g. BlogPost, ProductReview
+          </p>
         </div>
 
         <div className="form-section">
@@ -204,22 +206,21 @@ const SchemaBuilder = () => {
                 checked={writeToFs}
                 onChange={(e) => setWriteToFs(e.target.checked)}
               />
-              Write files to server disk (
-              <code>server/generated/</code>)
+              Write files to server disk (<code>server/generated/</code>)
             </label>
           </div>
         )}
 
         <div className="form-actions">
           <button type="submit" className="btn-generate" disabled={loading}>
-            {loading ? 'Generating…' : writeToFs ? 'Generate & Save' : 'Preview Code'}
+            {loading
+              ? 'Generating…'
+              : writeToFs
+                ? 'Generate & Save'
+                : 'Preview Code'}
           </button>
           {generatedCode && (
-            <button
-              type="button"
-              className="btn-reset"
-              onClick={handleReset}
-            >
+            <button type="button" className="btn-reset" onClick={handleReset}>
               Start Over
             </button>
           )}

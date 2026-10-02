@@ -98,7 +98,8 @@ function toRoutePrefix(str) {
 function buildModel(modelName, fields) {
   const schemaFields = fields
     .map((f) => {
-      const typeRef = f.type === "ObjectId" ? "mongoose.Schema.Types.ObjectId" : f.type;
+      const typeRef =
+        f.type === "ObjectId" ? "mongoose.Schema.Types.ObjectId" : f.type;
       const required = f.required ? ", required: true" : "";
       return `    ${f.name}: { type: ${typeRef}${required} },`;
     })

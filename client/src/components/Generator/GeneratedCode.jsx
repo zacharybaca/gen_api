@@ -46,7 +46,9 @@ const GeneratedCode = ({ modelName, code, onDownload }) => {
       </div>
 
       <div className="code-header">
-        <span className="code-filename">{FILE_NAMES[activeTab](modelName)}</span>
+        <span className="code-filename">
+          {FILE_NAMES[activeTab](modelName)}
+        </span>
         <div className="code-actions">
           <button type="button" className="btn-copy" onClick={handleCopy}>
             {copied ? '✓ Copied' : 'Copy'}

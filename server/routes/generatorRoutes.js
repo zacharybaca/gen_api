@@ -1,6 +1,9 @@
 import express from "express";
 import { body, validationResult } from "express-validator";
-import { generateFiles, previewFiles } from "../controllers/generatorController.js";
+import {
+  generateFiles,
+  previewFiles,
+} from "../controllers/generatorController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();

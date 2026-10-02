@@ -1,20 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const testSequenceSchema = new mongoose.Schema(
   {
     project: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Project',
+      ref: "Project",
       required: true,
     },
     endpoint: {
       type: String,
-      required: [true, 'Endpoint path is required (e.g., /api/blogposts)'],
+      required: [true, "Endpoint path is required (e.g., /api/blogposts)"],
     },
     method: {
       type: String,
       required: true,
-      enum: ['GET', 'POST', 'PUT', 'DELETE'],
+      enum: ["GET", "POST", "PUT", "DELETE"],
     },
     requestPayload: {
       type: mongoose.Schema.Types.Mixed, // Allows flexible JSON structures
@@ -28,12 +28,12 @@ const testSequenceSchema = new mongoose.Schema(
     expectedResponse: {
       type: mongoose.Schema.Types.Mixed,
       default: {},
-    }
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const TestSequence = mongoose.model('TestSequence', testSequenceSchema);
+const TestSequence = mongoose.model("TestSequence", testSequenceSchema);
 export default TestSequence;

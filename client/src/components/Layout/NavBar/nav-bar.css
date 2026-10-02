@@ -27,8 +27,8 @@
 }
 
 .nav-logo-svg {
-  height: 90px;     /* Gives the vertical design breathing room */
-  width: 110px;     /* Widen the bounding box so wide text paths don't crowd */
+  height: 90px; /* Gives the vertical design breathing room */
+  width: 110px; /* Widen the bounding box so wide text paths don't crowd */
   display: block;
   overflow: visible;
 }
