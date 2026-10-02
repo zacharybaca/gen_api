@@ -3,7 +3,7 @@ const GenApiLogo = ({ className, width, height, ...props }) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      viewBox="220 220 580 580"
+      viewBox="360 220 410 385"
       className={className}
       width={width || "100%"}
       height={height || "100%"}

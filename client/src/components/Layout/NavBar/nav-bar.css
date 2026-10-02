@@ -12,10 +12,10 @@
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 15px 30px;
+  padding: 10px 30px; /* Reduced vertical padding slightly to balance the taller logo */
   display: flex;
-  justify-content: space-between; /* Pushes logo left, links right */
-  align-items: center; /* Vertically centers everything */
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Taming the Giant SVG Logo */
@@ -23,13 +23,14 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  height: 90px; /* Increased height to make stacked text larger */
 }
 
 .nav-logo-svg {
-  height: 75px;
-  width: auto;
-  max-width: none;
+  height: 90px;     /* Gives the vertical design breathing room */
+  width: 110px;     /* Widen the bounding box so wide text paths don't crowd */
   display: block;
+  overflow: visible;
 }
 
 /* Base Links */
